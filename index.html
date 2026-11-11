@@ -1,1 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hello Panel</title>
+<style>
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: #11121a;
+  color: white;
+  font-family: Arial, sans-serif;
+}
+header {
+  padding: 22px 7%;
+  background: #191a27;
+  border-bottom: 1px solid #303143;
+  font-size: 23px;
+  font-weight: bold;
+}
+header span { color: #9b82ff; }
+main {
+  max-width: 650px;
+  margin: 65px auto;
+  padding: 20px;
+}
+.card {
+  background: #1c1d2b;
+  border: 1px solid #343548;
+  border-radius: 18px;
+  padding: 25px;
+  margin-top: 22px;
+}
+h1 { font-size: 32px; }
+p { color: #a6a7b8; }
+label { display: block; margin: 20px 0 8px; }
+input, select {
+  width: 100%;
+  padding: 14px;
+  background: #11121a;
+  color: white;
+  border: 1px solid #414258;
+  border-radius: 9px;
+  font-size: 15px;
+}
+button {
+  width: 100%;
+  margin-top: 18px;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #8063ee;
+  color: white;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+}
+button:hover { background: #987fff; }
+.status { color: #aaa; font-size: 13px; }
+</style>
+</head>
+<body>
+<header>💬 HELLO <span>PANEL</span></header>
+<main>
+  <h1>Welcome back 👋</h1>
+  <p>Your personal Discord messaging dashboard.</p>
+
+  <div class="card">
+    <h2>Discord connection</h2>
+    <p id="connection">Not connected</p>
+    <button onclick="alert('Discord authorization will be added later!')">
+      Connect Discord
+    </button>
+  </div>
+
+  <div class="card">
+    <h2>Send a message</h2>
+
+    <label>Server</label>
+    <select id="server">
+      <option>Connect Discord first</option>
+    </select>
+
+    <label>Channel</label>
+    <select id="channel">
+      <option># general</option>
+    </select>
+
+    <label>Message</label>
+    <input id="message" value="Hello everyone! 👋">
+
+    <button onclick="sendHello()">SEND HELLO 🚀</button>
+    <p class="status" id="status">Waiting for connection...</p>
+  </div>
+
+  <div class="card">
+    <h2>Message history</h2>
+    <p id="history">No messages sent yet.</p>
+  </div>
+</main>
+
+<script>
+function sendHello() {
+  document.getElementById("status").textContent =
+    "Not connected. An authorized Discord integration is required.";
+}
+</script>
+</body>
+</html>
 
