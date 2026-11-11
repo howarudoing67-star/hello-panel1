@@ -1,111 +1,348 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Hello Panel</title>
+
 <style>
-* { box-sizing: border-box; }
-body {
+* {
+  box-sizing: border-box;
   margin: 0;
-  background: #11121a;
-  color: white;
+  padding: 0;
+}
+
+body {
+  background: #0d0e14;
+  color: #fff;
   font-family: Arial, sans-serif;
+  min-height: 100vh;
 }
+
 header {
-  padding: 22px 7%;
-  background: #191a27;
-  border-bottom: 1px solid #303143;
-  font-size: 23px;
-  font-weight: bold;
+  height: 75px;
+  background: #171823;
+  border-bottom: 1px solid #292a39;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 6%;
 }
-header span { color: #9b82ff; }
+
+.logo {
+  font-size: 23px;
+  font-weight: 800;
+}
+
+.logo span {
+  color: #9275ff;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.profile img {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+}
+
 main {
-  max-width: 650px;
-  margin: 65px auto;
+  max-width: 850px;
+  margin: 55px auto;
   padding: 20px;
 }
-.card {
-  background: #1c1d2b;
-  border: 1px solid #343548;
-  border-radius: 18px;
-  padding: 25px;
-  margin-top: 22px;
+
+h1 {
+  font-size: 34px;
+  margin-bottom: 10px;
 }
-h1 { font-size: 32px; }
-p { color: #a6a7b8; }
-label { display: block; margin: 20px 0 8px; }
+
+.subtitle {
+  color: #9293a5;
+  margin-bottom: 30px;
+}
+
+.card {
+  background: #191a27;
+  border: 1px solid #303143;
+  border-radius: 17px;
+  padding: 25px;
+  margin-bottom: 22px;
+}
+
+h2 {
+  font-size: 19px;
+  margin-bottom: 15px;
+}
+
+p {
+  color: #a3a4b5;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+button {
+  border: 0;
+  border-radius: 10px;
+  padding: 14px 18px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: .2s;
+}
+
+button:hover {
+  filter: brightness(1.15);
+  transform: translateY(-1px);
+}
+
+.primary {
+  background: #8065f5;
+  color: white;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.secondary {
+  background: #303143;
+  color: white;
+}
+
 input, select {
   width: 100%;
   padding: 14px;
-  background: #11121a;
-  color: white;
-  border: 1px solid #414258;
+  margin-top: 8px;
+  background: #10111a;
+  border: 1px solid #36374b;
   border-radius: 9px;
-  font-size: 15px;
-}
-button {
-  width: 100%;
-  margin-top: 18px;
-  padding: 15px;
-  border: none;
-  border-radius: 10px;
-  background: #8063ee;
   color: white;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
+  outline: none;
+  font-size: 14px;
 }
-button:hover { background: #987fff; }
-.status { color: #aaa; font-size: 13px; }
+
+label {
+  display: block;
+  margin-top: 20px;
+  color: #b9bac9;
+  font-size: 13px;
+}
+
+.status {
+  margin-top: 15px;
+  font-size: 13px;
+  color: #a5a6b7;
+}
+
+.message {
+  background: #10111a;
+  border: 1px solid #303143;
+  padding: 13px;
+  border-radius: 9px;
+  margin-top: 12px;
+  color: #aaa;
+  font-size: 13px;
+}
+
+.hidden {
+  display: none;
+}
+
+footer {
+  text-align: center;
+  color: #656679;
+  padding: 30px;
+  font-size: 12px;
+}
+
+@media(max-width:600px) {
+  main {
+    margin: 25px auto;
+  }
+  h1 {
+    font-size: 28px;
+  }
+  header {
+    padding: 0 20px;
+  }
+}
 </style>
 </head>
+
 <body>
-<header>💬 HELLO <span>PANEL</span></header>
+
+<header>
+  <div class="logo">💬 HELLO <span>PANEL</span></div>
+
+  <div class="profile">
+    <span id="headerName">Not connected</span>
+    <img id="headerAvatar"
+      class="hidden"
+      alt="Discord avatar">
+  </div>
+</header>
+
 <main>
-  <h1>Welcome back 👋</h1>
-  <p>Your personal Discord messaging dashboard.</p>
 
-  <div class="card">
-    <h2>Discord connection</h2>
-    <p id="connection">Not connected</p>
-    <button onclick="alert('Discord authorization will be added later!')">
-      Connect Discord
-    </button>
+<h1>Welcome back 👋</h1>
+<p class="subtitle">
+  Your personal Discord messaging dashboard.
+</p>
+
+<div class="card">
+  <h2>Discord account</h2>
+  <p id="connection">
+    Connect your Discord account to get started.
+  </p>
+
+  <button class="primary" id="connectButton"
+    onclick="connectDiscord()">
+    Connect Discord
+  </button>
+
+  <button class="secondary hidden" id="logoutButton"
+    onclick="logout()">
+    Disconnect
+  </button>
+</div>
+
+<div class="card">
+  <h2>Message center</h2>
+  <p>Prepare your message.</p>
+
+  <label>Server</label>
+  <select id="server">
+    <option>Server selection requires an authorized integration</option>
+  </select>
+
+  <label>Channel</label>
+  <select id="channel">
+    <option># general</option>
+  </select>
+
+  <label>Message</label>
+  <input id="message"
+    value="Hello everyone! 👋"
+    maxlength="2000">
+
+  <button class="primary" onclick="sendMessage()">
+    🚀 SEND HELLO
+  </button>
+
+  <p class="status" id="sendStatus">
+    An authorized integration is required to send messages.
+  </p>
+</div>
+
+<div class="card">
+  <h2>Message history</h2>
+  <div id="history">
+    <p>No messages yet.</p>
   </div>
+</div>
 
-  <div class="card">
-    <h2>Send a message</h2>
-
-    <label>Server</label>
-    <select id="server">
-      <option>Connect Discord first</option>
-    </select>
-
-    <label>Channel</label>
-    <select id="channel">
-      <option># general</option>
-    </select>
-
-    <label>Message</label>
-    <input id="message" value="Hello everyone! 👋">
-
-    <button onclick="sendHello()">SEND HELLO 🚀</button>
-    <p class="status" id="status">Waiting for connection...</p>
-  </div>
-
-  <div class="card">
-    <h2>Message history</h2>
-    <p id="history">No messages sent yet.</p>
-  </div>
 </main>
 
+<footer>
+  HELLO PANEL · Made with 💜
+</footer>
+
 <script>
-function sendHello() {
-  document.getElementById("status").textContent =
-    "Not connected. An authorized Discord integration is required.";
+
+const API =
+  "https://hello-panel-api.howarudoing67.workers.dev";
+
+function connectDiscord() {
+  window.location.href = API + "/login";
 }
+
+function logout() {
+  localStorage.removeItem("helloPanelUser");
+  location.reload();
+}
+
+function loadUser() {
+  const saved = localStorage.getItem("helloPanelUser");
+
+  if (!saved) return;
+
+  try {
+    const user = JSON.parse(saved);
+
+    document.getElementById("connection").textContent =
+      "Connected as " + user.username;
+
+    document.getElementById("headerName").textContent =
+      user.username;
+
+    if (user.avatar) {
+      const avatar =
+        "https://cdn.discordapp.com/avatars/" +
+        user.id + "/" + user.avatar + ".png";
+
+      document.getElementById("headerAvatar").src = avatar;
+      document.getElementById("headerAvatar")
+        .classList.remove("hidden");
+    }
+
+    document.getElementById("connectButton")
+      .classList.add("hidden");
+
+    document.getElementById("logoutButton")
+      .classList.remove("hidden");
+
+  } catch {
+    localStorage.removeItem("helloPanelUser");
+  }
+}
+
+function handleCallback() {
+  const params = new URLSearchParams(location.search);
+
+  if (params.get("success") === "true") {
+    const user = {
+      username: params.get("username"),
+      id: params.get("id"),
+      avatar: params.get("avatar")
+    };
+
+    if (!user.username || !user.id) return;
+
+    localStorage.setItem(
+      "helloPanelUser",
+      JSON.stringify(user)
+    );
+
+    history.replaceState({}, "", location.pathname);
+    loadUser();
+  }
+}
+
+function sendMessage() {
+  const message =
+    document.getElementById("message").value.trim();
+
+  const status =
+    document.getElementById("sendStatus");
+
+  if (!message) {
+    status.textContent = "Write a message first!";
+    return;
+  }
+
+  status.textContent =
+    "Sending is not enabled yet. An authorized bot or webhook is required.";
+}
+
+handleCallback();
+loadUser();
+
 </script>
 </body>
 </html>
-
